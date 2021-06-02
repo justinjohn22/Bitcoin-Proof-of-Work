@@ -1,16 +1,34 @@
-# This is a sample Python script.
+# Bitcoin Protocol: Proof of Work
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import string
+import random
+import hashlib
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+example_challenge = '9j122sdf4i9028uedioiu353ee'
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def generation(challenge=example_challenge, size=25):
+    # make a random string of size 26
+    answer = ''.join(random.choice(string.ascii_lowercase +
+                                   string.ascii_uppercase +
+                                   string.digits) for x in range(size))
+    attempt = challenge + answer
+    return attempt, answer
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+def testAttempt():
+    attempt, answer = generation()
+
+    # shaHash.update(attempt)
+    # solution = shaHash.hexdigest()
+    shaHash = hashlib.sha256(str(attempt).encode('utf-8'))
+    solution = shaHash.hexdigest()
+
+    if solution.startswith('000'):
+        print("Mine successful!")
+        print(solution)
+
+for x in range(0,10000):
+    testAttempt()
+
+testAttempt()
