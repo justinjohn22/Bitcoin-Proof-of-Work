@@ -38,7 +38,6 @@ def testAttempt():
             print(solution)
             print('Answer: ' + answer)
             print('Time took: ' + str(timeTook))
-            print('================================================================')
             found = True
         else:
             print('Not successful')
@@ -48,8 +47,9 @@ def testAttempt():
             print(solution)
             print('Time:' + str(timeTook))
             attemptCount += 1
-            print('================================================================')
+        print('================================================================')
 
+    consoleBreak = input("exit? ")
     return answer
 
 
