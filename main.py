@@ -17,18 +17,18 @@ def generation(challenge=example_challenge, size=25):
 
 
 def testAttempt():
-    attempt, answer = generation()
+    found = False
 
-    # shaHash.update(attempt)
-    # solution = shaHash.hexdigest()
-    shaHash = hashlib.sha256(str(attempt).encode('utf-8'))
-    solution = shaHash.hexdigest()
+    while found == False:
+        attempt, answer = generation()
+        shaHash = hashlib.sha256(str(attempt).encode('utf-8'))
+        solution = shaHash.hexdigest()
+        if solution.startswith('000000'):
+            print(solution)
+            found = True
 
-    if solution.startswith('000'):
-        print("Mine successful!")
-        print(solution)
-
-for x in range(0,10000):
-    testAttempt()
+    return answer
 
 testAttempt()
+
+
