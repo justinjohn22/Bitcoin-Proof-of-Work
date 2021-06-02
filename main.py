@@ -3,6 +3,7 @@
 import string
 import random
 import hashlib
+import time
 
 example_challenge = '9j122sdf4i9028uedioiu353ee'
 
@@ -18,17 +19,34 @@ def generation(challenge=example_challenge, size=25):
 
 def testAttempt():
     found = False
-
-    while found == False:
+    start = time.time()
+    attemptCount = 0
+    while not found:
         attempt, answer = generation()
         shaHash = hashlib.sha256(str(attempt).encode('utf-8'))
         solution = shaHash.hexdigest()
-        if solution.startswith('000000'):
+
+        if solution.startswith('000'):
+            print('Attempt successful!')
+            print('================================================================')
+            print('Attempt: ' + str(attemptCount))
+            timeTook = time.time() - start
             print(solution)
+            print('Answer: ' + answer)
+            print('Time took: ' + str(timeTook))
+            print('================================================================')
             found = True
+        else:
+            print('Not successful')
+            print('================================================================')
+            print('Attempt: ' + str(attemptCount))
+            timeTook = time.time() - start
+            print(solution)
+            print('Time:' + str(timeTook))
+            attemptCount += 1
+            print('================================================================')
 
     return answer
 
+
 testAttempt()
-
-
