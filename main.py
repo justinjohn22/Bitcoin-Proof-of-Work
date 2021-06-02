@@ -21,11 +21,15 @@ def testAttempt():
     found = False
     start = time.time()
     attemptCount = 0
+
+    # start mining
     while not found:
+        # create a new hash
         attempt, answer = generation()
         shaHash = hashlib.sha256(str(attempt).encode('utf-8'))
         solution = shaHash.hexdigest()
 
+        # mining difficulty is changed by altering the number of starting zero bits
         if solution.startswith('000'):
             print('Attempt successful!')
             print('================================================================')
